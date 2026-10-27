@@ -17,6 +17,22 @@ const DIMENSIONS = {
   JP: ["J", "P"],
 } as const;
 
+/** Build answers that produce a target type: winning trait on every question of winning dimensions. */
+function answersForType(type: string): Answers {
+  const letters = type.split("") as Trait[];
+  const winners: Record<string, Trait> = {
+    EI: letters[0],
+    SN: letters[1],
+    TF: letters[2],
+    JP: letters[3],
+  };
+  const answers: Answers = {};
+  for (const q of QUESTIONS) {
+    answers[q.id] = winners[q.dimension];
+  }
+  return answers;
+}
+
 describe("question bank", () => {
   it("has exactly 20 questions with unique ids 1..20", () => {
     expect(QUESTIONS).toHaveLength(20);
