@@ -89,25 +89,6 @@ describe("personality database", () => {
 });
 
 describe("scoring", () => {
-  /** Build answers that produce a target type: trait "winner" on every question of winning dimensions. */
-  function answersForType(type: string): Answers {
-    const letters = type.split("") as Trait[];
-    const winners: Record<string, Trait> = {
-      EI: letters[0],
-      SN: letters[1],
-      TF: letters[2],
-      JP: letters[3],
-    };
-    const answers: Answers = {};
-    for (const q of QUESTIONS) {
-      const pair = DIMENSIONS[q.dimension];
-      const winner = winners[q.dimension];
-      answers[q.id] = winner;
-      void pair;
-    }
-    return answers;
-  }
-
   it("produces all 16 possible types from valid answers", () => {
     const letters: Record<number, string[]> = { 0: ["E", "I"], 1: ["S", "N"], 2: ["T", "F"], 3: ["J", "P"] };
     for (const a of letters[0])
