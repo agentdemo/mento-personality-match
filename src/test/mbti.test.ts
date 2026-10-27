@@ -156,14 +156,15 @@ describe("percentages and ordering", () => {
 
   it("rounds a 3/2 split to 60/40", () => {
     const answers = answersForType("INTP");
-    answers[1] = "E"; // I loses one: 4/1 -> 80/20; use TF instead for 3/2
+    // INTP starts with T=5; flip questions 11 and 12 to F for a 3/2 T/F split.
     answers[11] = "F";
     answers[12] = "F";
     const dims = dimensionPercentages(calculateMBTI(answers).scores);
     const tf = dims.find((d) => d.dimension === "TF")!;
-    expect(tf.winner).toBe("F");
+    expect(tf.winner).toBe("T");
     expect(tf.winnerPct).toBe(60);
     expect(tf.loserPct).toBe(40);
+    expect(tf.loser).toBe("F");
   });
 
   it("shuffles produce the same 20 ids", () => {
